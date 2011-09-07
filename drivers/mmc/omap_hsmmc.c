@@ -34,7 +34,7 @@
 #include <asm/arch/sys_proto.h>
 
 /* If we fail after 1 second wait, something is really bad */
-#define MAX_RETRY_MS	1000
+#define MAX_RETRY_MS	5000
 
 static int mmc_read_data(struct hsmmc *mmc_base, char *buf, unsigned int size);
 static int mmc_write_data(struct hsmmc *mmc_base, const char *buf,
