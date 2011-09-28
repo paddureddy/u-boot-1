@@ -423,7 +423,7 @@ int board_init(void)
 
 	i2c_init(CONFIG_SYS_I2C_SPEED, CONFIG_SYS_I2C_SLAVE);
 
-	configure_evm_pin_mux(board_id, profile, daughter_board_connected);
+	configure_evm_pin_mux(GP_BOARD, profile, daughter_board_connected);
 
 #ifndef CONFIG_SPL_BUILD
 	board_evm_init();
