@@ -65,7 +65,7 @@
 #define CONFIG_SYS_MALLOC_LEN		(CONFIG_ENV_SIZE + (32 * 1024))
 #define CONFIG_ENV_OVERWRITE
 #define CONFIG_SYS_LONGHELP
-#define CONFIG_SYS_PROMPT		"AM335X_EVM# "
+#define CONFIG_SYS_PROMPT		"BeagleBone# "
 /* Use HUSH parser to allow command parsing */
 #define CONFIG_SYS_HUSH_PARSER
 #define CONFIG_SYS_PROMPT_HUSH_PS2	"> "
@@ -89,7 +89,7 @@
 #define CONFIG_EXTRA_ENV_SETTINGS \
 	"verify=yes\0" \
 	"bootfile=uImage\0" \
-	"brd_mem=62M\0" \
+	"brd_mem=256M\0" \
 	"loadaddr=0x81000000\0" \
 	"script_addr=0x80900000\0" \
 	"console=ttyO0,115200n8\0" \
@@ -112,7 +112,7 @@
 	"nfsopts=nolock\0" \
 	"static_ip=${ipaddr}:${serverip}:${gatewayip}:${netmask}:${hostname}" \
 			"::off\0" \
-	"ip_method=dhcp\0" \
+	"ip_method=none\0" \
 	"loadbootscript=fatload mmc 0 ${script_addr} boot.scr\0" \
 	"bootscript= echo Running bootscript from MMC/SD to set the ENV...; " \
 		"source ${script_addr}\0" \
