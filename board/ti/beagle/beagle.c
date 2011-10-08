@@ -59,11 +59,14 @@ extern volatile struct ehci_hcor *hcor;
 #define TWL4030_I2C_BUS			0
 #define EXPANSION_EEPROM_I2C_BUS	1
 #define EXPANSION_EEPROM_I2C_ADDRESS	0x50
+#define DVI_EDID_I2C_BUS	2
+#define DVI_EDID_I2C_ADDRESS	0x50
 
 #define TINCANTOOLS_ZIPPY		0x01000100
 #define TINCANTOOLS_ZIPPY2		0x02000100
 #define TINCANTOOLS_TRAINER		0x04000100
 #define TINCANTOOLS_SHOWDOG		0x03000100
+#define TINCANTOOLS_BEACON		0x05000100
 #define KBADC_BEAGLEFPGA		0x01000600
 #define LW_BEAGLETOUCH			0x01000700
 #define BRAINMUX_LCDOG			0x01000800
@@ -355,6 +358,13 @@ int misc_init_r(void)
 		/* Place holder for DSS2 definition for showdog lcd */
 		setenv("defaultdisplay", "showdoglcd");
 		setenv("buddy", "showdog");
+		break;
+	case TINCANTOOLS_BEACON:
+		printf("Recognized Tincantools Beacon board (rev %d %s)\n",
+			expansion_config.revision,
+			expansion_config.fab_revision);
+		MUX_TINCANTOOLS_BEACON();
+		setenv("buddy", "beacon");
 		break;
 	case KBADC_BEAGLEFPGA:
 		printf("Recognized KBADC Beagle FPGA board\n");
