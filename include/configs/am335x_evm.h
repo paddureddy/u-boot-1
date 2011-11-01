@@ -69,7 +69,7 @@
 	"nfsopts=nolock\0" \
 	"static_ip=${ipaddr}:${serverip}:${gatewayip}:${netmask}:${hostname}" \
 			"::off\0" \
-	"ip_method=dhcp\0" \
+	"ip_method=none\0" \
 	"bootenv=uEnv.txt\0" \
 	"loadbootenv=fatload mmc ${mmc_dev} ${loadaddr} ${bootenv}\0" \
 	"importbootenv=echo Importing environment from mmc ...; " \
@@ -99,7 +99,7 @@
 		"setenv bootargs ${bootargs} " \
 		"root=/dev/nfs " \
 		"nfsroot=${serverip}:${rootpath},${nfsopts} rw " \
-		"ip=${ip_method}\0" \
+		"ip=dhcp\0" \
 	"mmc_boot=run mmc_args; " \
 		"run mmc_load_uimage; " \
 		"bootm ${loadaddr}\0" \
