@@ -226,7 +226,7 @@
 	"dvimode=640x480MR-16@60\0" \
 	"defaultdisplay=dvi\0" \
 	"mmcdev=0\0" \
-	"mmcroot=/dev/mmcblk0p2 rw\0" \
+	"mmcroot=/dev/mmcblk0p2 ro\0" \
 	"mmcrootfstype=ext3 rootwait\0" \
 	"nandroot=ubi0:rootfs ubi.mtd=4\0" \
 	"nandrootfstype=ubifs\0" \
