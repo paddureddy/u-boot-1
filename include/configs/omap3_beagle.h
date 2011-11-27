@@ -244,6 +244,7 @@
 	"console=ttyO2,115200n8\0" \
 	"mpurate=auto\0" \
 	"buddy=none "\
+	"buddy2=none "\
 	"optargs=\0" \
 	"camera=none\0" \
 	"vram=12M\0" \
@@ -260,6 +261,7 @@
 		"${optargs} " \
 		"mpurate=${mpurate} " \
 		"buddy=${buddy} "\
+		"buddy2=${buddy2} "\
 		"camera=${camera} "\
 		"vram=${vram} " \
 		"omapfb.mode=dvi:${dvimode} " \

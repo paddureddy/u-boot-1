@@ -74,6 +74,7 @@ extern volatile struct ehci_hcor *hcor;
 #define BBTOYS_WIFI			0x01000B00
 #define BBTOYS_VGA			0x02000B00
 #define BBTOYS_LCD			0x03000B00
+#define BBTOYS_ULCD			0x04000B00
 #define BEAGLE_NO_EEPROM		0xffffffff
 
 DECLARE_GLOBAL_DATA_PTR;
@@ -214,18 +215,18 @@ void get_board_mem_timings(u32 *mcfg, u32 *ctrla, u32 *ctrlb, u32 *rfr_ctrl,
  *		bus 1 for the availability of an AT24C01B serial EEPROM.
  *		returns the device_vendor field from the EEPROM
  */
-unsigned int get_expansion_id(void)
+unsigned int get_expansion_id(int eeprom_address)
 {
 	i2c_set_bus_num(EXPANSION_EEPROM_I2C_BUS);
 
 	/* return BEAGLE_NO_EEPROM if eeprom doesn't respond */
-	if (i2c_probe(EXPANSION_EEPROM_I2C_ADDRESS) == 1) {
+	if (i2c_probe(eeprom_address) == 1) {
 		i2c_set_bus_num(TWL4030_I2C_BUS);
 		return BEAGLE_NO_EEPROM;
 	}
 
 	/* read configuration data */
-	i2c_read(EXPANSION_EEPROM_I2C_ADDRESS, 0, 1, (u8 *)&expansion_config,
+	i2c_read(eeprom_address, 0, 1, (u8 *)&expansion_config,
 		 sizeof(expansion_config));
 
 	i2c_set_bus_num(TWL4030_I2C_BUS);
@@ -328,7 +329,7 @@ int misc_init_r(void)
 					TWL4030_PM_RECEIVER_DEV_GRP_P1);
 	}
 
-	switch (get_expansion_id()) {
+	switch (get_expansion_id(EXPANSION_EEPROM_I2C_ADDRESS)) {
 	case TINCANTOOLS_ZIPPY:
 		printf("Recognized Tincantools Zippy board (rev %d %s)\n",
 			expansion_config.revision,
@@ -402,6 +403,27 @@ int misc_init_r(void)
 		printf("Unrecognized expansion board: %x\n",
 			expansion_config.device_vendor);
 		setenv("buddy", "unknown");
+	}
+
+	if (expansion_config.content == 1)
+		setenv(expansion_config.env_var, expansion_config.env_setting);
+
+	/* Scan 0x51 as well for loop-thru boards */
+	switch (get_expansion_id(EXPANSION_EEPROM_I2C_ADDRESS + 1)) {
+	case BBTOYS_ULCD:
+		printf("Recognized BeagleBoardToys uLCD-lite board\n");
+		setenv("buddy2", "bbtoys-ulcd");
+		setenv("defaultdisplay", "lcd");
+		setenv("uenvcmd", "i2c dev 1 ; i2c mw 40 00 00; i2c mw 40 04 80; i2c mw 40 0d 05; i2c mw 40 0d 15");
+		break;
+	case BEAGLE_NO_EEPROM:
+		printf("No EEPROM on expansion board\n");
+		setenv("buddy2", "none");
+		break;
+	default:
+		printf("Unrecognized expansion board: %x\n",
+			expansion_config.device_vendor);
+		setenv("buddy2", "unknown");
 	}
 
 	if (expansion_config.content == 1)
