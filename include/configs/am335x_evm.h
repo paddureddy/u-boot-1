@@ -149,6 +149,7 @@
 #endif
 
 #define CONFIG_BOOTCOMMAND \
+	"i2c mw 0x24 1 0x3e; " \
 	"run findfdt; " \
 	"mmc dev ${mmcdev}; if mmc rescan; then " \
 		"echo SD/MMC found on device ${mmcdev};" \
