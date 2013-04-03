@@ -152,23 +152,11 @@
 #define CONFIG_BOOTCOMMAND \
 	"i2c mw 0x24 1 0x3e; " \
 	"run findfdt; " \
-	"mmc dev 1; if mmc rescan; then " \
-		"echo SD/MMC found on device ${mmcdev};" \
+	"if mmc dev 1; then " \
+		"echo eMMC found;" \
 		"setenv mmcdev 1;"\
-		"if run loadbootenv; then " \
-			"echo Loaded environment from ${bootenv};" \
-			"run importbootenv;" \
-		"fi;" \
-		"if test -n $uenvcmd; then " \
-			"echo Running uenvcmd ...;" \
-			"run uenvcmd;" \
-		"fi;" \
-		"if run loaduimage; then " \
-			"run loadfdt;" \
-			"run mmcboot;" \
-		"fi;" \
 	"else " \
-		"echo No SD/MMC found on device ${mmcdev};" \
+		"echo No eMMC found;" \
 	"fi;" \
 	"mmc dev ${mmcdev}; if mmc rescan; then " \
 		"echo SD/MMC found on device ${mmcdev};" \
@@ -184,8 +172,6 @@
 			"run loadfdt;" \
 			"run mmcboot;" \
 		"fi;" \
-	"else " \
-		"run nandboot;" \
 	"fi;" \
 
 /* Clock Defines */
