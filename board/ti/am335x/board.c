@@ -60,7 +60,8 @@ static inline int board_is_bone(void)
 
 static inline int board_is_bone_lt(void)
 {
-	return !strncmp(header.name, "A335BNLT", HDR_NAME_LEN);
+	//return !strncmp(header.name, "A335BNLT", HDR_NAME_LEN);
+	return 1;
 }
 
 static inline int board_is_evm_sk(void)
@@ -378,7 +379,7 @@ void s_init(void)
 	if (board_is_evm_sk())
 		config_ddr(303, MT41J128MJT125_IOCTRL_VALUE, &ddr3_data,
 			   &ddr3_cmd_ctrl_data, &ddr3_emif_reg_data, 0);
-	else if (board_is_bone_lt())
+	else if (board_is_bone_lt() && !board_is_bone())
 		config_ddr(400, MT41K256M16HA125E_IOCTRL_VALUE,
 			   &ddr3_beagleblack_data,
 			   &ddr3_beagleblack_cmd_ctrl_data,
