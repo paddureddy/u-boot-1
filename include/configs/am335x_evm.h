@@ -59,7 +59,7 @@
 	"rdaddr=0x81000000\0" \
 	"bootdir=/boot\0" \
 	"bootfile=uImage\0" \
-	"fdtfile=\0" \
+	"fdtfile=am335x-boneblack.dtb\0" \
 	"console=ttyO0,115200n8\0" \
 	"optargs=\0" \
 	"mtdids=" MTDIDS_DEFAULT "\0" \
