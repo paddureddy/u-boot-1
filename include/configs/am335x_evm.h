@@ -152,11 +152,12 @@
 #define CONFIG_BOOTCOMMAND \
 	"i2c mw 0x24 1 0x3e; " \
 	"run findfdt; " \
-	"if mmc dev 1; then " \
-		"echo eMMC found;" \
-		"setenv mmcdev 1;"\
+	"mmc dev 0; if mmc rescan ; then " \
+		"echo micro SD card found;" \
+		"setenv mmcdev 0;"\
 	"else " \
-		"echo No eMMC found;" \
+		"echo No micro SD card found, setting mmcdev to 1;" \
+		"setenv mmcdev 1;"\
 	"fi;" \
 	"mmc dev ${mmcdev}; if mmc rescan; then " \
 		"echo SD/MMC found on device ${mmcdev};" \
