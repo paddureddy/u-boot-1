@@ -159,6 +159,7 @@
 		"echo No micro SD card found, setting mmcdev to 1;" \
 		"setenv mmcdev 1;"\
 	"fi;" \
+	"setenv bootpart ${mmcdev}:2;" \
 	"mmc dev ${mmcdev}; if mmc rescan; then " \
 		"echo SD/MMC found on device ${mmcdev};" \
 		"if run loadbootenv; then " \
