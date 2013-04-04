@@ -43,7 +43,7 @@
 
 /* commands to include */
 #include <config_cmd_default.h>
-
+#define CONFIG_CMD_GPIO
 #define CONFIG_CMD_ASKENV
 #define CONFIG_VERSION_VARIABLE
 
