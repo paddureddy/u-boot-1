@@ -150,6 +150,7 @@
 #endif
 
 #define CONFIG_BOOTCOMMAND \
+	"gpio set 53; " \
 	"i2c mw 0x24 1 0x3e; " \
 	"run findfdt; " \
 	"mmc dev 0; if mmc rescan ; then " \
@@ -161,6 +162,7 @@
 	"fi;" \
 	"setenv bootpart ${mmcdev}:2;" \
 	"mmc dev ${mmcdev}; if mmc rescan; then " \
+		"gpio set 54; " \
 		"echo SD/MMC found on device ${mmcdev};" \
 		"if run loadbootenv; then " \
 			"echo Loaded environment from ${bootenv};" \
@@ -170,7 +172,9 @@
 			"echo Running uenvcmd ...;" \
 			"run uenvcmd;" \
 		"fi;" \
+		"gpio set 55; " \
 		"if run loaduimage; then " \
+			"gpio set 56; " \
 			"run loadfdt;" \
 			"run mmcboot;" \
 		"fi;" \
