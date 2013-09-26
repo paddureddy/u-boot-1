@@ -1,0 +1,11 @@
+Mainline x-loader (git://gitorious.org/x-loader/x-loader.git)
+  The non-mainline U-Boot mentioned by Robert Berger above
+     (git://github.com/koenkooi/u-boot.git)
+
+However, using mainline x-loader and mainline U-Boot, networking does not work from
+U-Boot.  Even after "dcache off".
+
+Jason mentioned earlier in the thread that "if it doesn't work then there was
+a regression."  There may have been a regression in mainline, then.  What is in
+mainline U-Boot does not handle networking properly from U-Boot on Beagle XM,
+and what is in the koenkooi tree above does work.
